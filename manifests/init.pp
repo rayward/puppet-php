@@ -169,16 +169,16 @@ class php (
   $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")
 
   # Deep merge global php settings
-  $real_settings = deep_merge($settings, hiera_hash('php::settings', {}))
+  $real_settings = delete_undef_values(deep_merge($settings, hiera_hash('php::settings', {})))
 
   # Deep merge global php extensions
-  $real_extensions = deep_merge($extensions, hiera_hash('php::extensions', {}))
+  $real_extensions = delete_undef_values(deep_merge($extensions, hiera_hash('php::extensions', {})))
 
   # Deep merge fpm_pools
-  $real_fpm_pools = deep_merge($fpm_pools, hiera_hash('php::fpm_pools', {}))
+  $real_fpm_pools = delete_undef_values(deep_merge($fpm_pools, hiera_hash('php::fpm_pools', {})))
 
   # Deep merge fpm_global_pool_settings
-  $real_fpm_global_pool_settings = deep_merge($fpm_global_pool_settings, hiera_hash('php::fpm_global_pool_settings', {}))
+  $real_fpm_global_pool_settings = delete_undef_values(deep_merge($fpm_global_pool_settings, hiera_hash('php::fpm_global_pool_settings', {})))
 
   if $manage_repos {
     class { '::php::repo': } ->
